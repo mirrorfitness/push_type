@@ -5,6 +5,7 @@ module PushType
 
     before_action :build_node,  only: [:new, :create]
     before_action :load_node,   only: [:edit, :update, :destroy, :restore, :position]
+    after_action :expire_cache, only: [:create, :update, :destroy, :restore, :position]
 
     def index
       @nodes = node_scope.not_trash.page(params[:page]).per(30)
@@ -72,6 +73,10 @@ module PushType
 
     private
 
+    def expire_cache
+      Rails.cache.delete('nodes')
+    end
+
     def node_scope
       @node_scope ||= if params[:node_id]
         @parent = PushType::Node.find params[:node_id]
@@ -121,6 +126,6 @@ module PushType
         PushType::Node.find(params[:next]).prepend_sibling(@node)
       end
     end
-    
+
   end
 end
