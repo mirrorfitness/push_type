@@ -23,7 +23,8 @@
                 %table
                   %tr
                     %th File name
-                    %td {{ asset.file_name }}
+                    %td
+                      %a{ :'v-bind:href' => 'asset.url', target: '_blank' } {{ asset.file_name }}
                   %tr
                     %th File size
                     %td {{ asset.file_size | kb }}
@@ -41,4 +42,4 @@
           = render 'meta_table'
         .submit.text-center
           = render 'form_submit'
-              
+

@@ -9,10 +9,10 @@ module PushType
     include PushType::Trashable
     include PushType::Presentable
 
-    belongs_to :creator, class_name: 'PushType::User'
-    belongs_to :updater, class_name: 'PushType::User'
+    belongs_to :creator, class_name: 'PushType::User', optional: true
+    belongs_to :updater, class_name: 'PushType::User', optional: true
 
-    acts_as_tree name_column: 'slug', order: 'sort_order', dependent: :destroy
+    has_closure_tree name_column: 'slug', order: 'sort_order', dependent: :destroy
 
     validates :title, presence: true
     validates :slug,  presence: true, uniqueness: { scope: :parent_id }
