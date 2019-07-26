@@ -61,7 +61,8 @@ export default Vue.component('node-form', {
       }
     },
     cleanSlug: function() {
-      this.node.slug = slug(this.node.slug, { lower: true });
+      // Do nothing. This is to explicitly allow slashes in slugs.
+      // this.node.slug = slug(this.node.slug, { lower: true });
     }
   }
 

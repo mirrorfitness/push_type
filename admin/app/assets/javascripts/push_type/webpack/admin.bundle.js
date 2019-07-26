@@ -39216,7 +39216,8 @@
 	      }
 	    },
 	    cleanSlug: function cleanSlug() {
-	      this.node.slug = (0, _slug2.default)(this.node.slug, { lower: true });
+	      // Do nothing. This is to explicitly allow slashes in slugs.
+	      // this.node.slug = slug(this.node.slug, { lower: true });
 	    }
 	  }
 
