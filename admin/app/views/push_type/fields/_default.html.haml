@@ -1,1 +1,3 @@
 = f.send field.form_helper, field.name, field.html_options
+- if field.field_options[:note]
+  .div.note= field.field_options[:note]

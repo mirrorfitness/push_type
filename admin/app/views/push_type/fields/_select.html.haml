@@ -1,1 +1,3 @@
 = f.select field.name, field.choices, field.field_options, field.html_options.merge(:'v-selectize' => true, :'selectize-kind' => field.kind)
+- if field.field_options[:note]
+  .div.note= field.field_options[:note]
