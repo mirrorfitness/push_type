@@ -125,6 +125,6 @@ module PushType
     def per_page_param
       params[:per_page] || 30
     end
-    
+
   end
 end

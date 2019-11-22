@@ -9,7 +9,7 @@
               %td= render_field row.f, r, name: "#{ f.object_name }[#{ field.name }][]", id: nil
               %td.remove
                 %a.alert{ :'v-remove-row' => true }= ficon(:x)
-        
+
         // Dynamic rows
         = f.fields_for field.name, field.structure do |r|
           %tr{ :'v-for' => 'row in rows', :'track-by' => 'id' }
