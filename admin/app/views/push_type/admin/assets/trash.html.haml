@@ -26,10 +26,10 @@
         .padded
           .pagination-centered
             .pagination-stats
-            = pluralize @assets.total_count, 'item'
-            - unless @assets.total_count == 0
-              \- Page #{ @assets.current_page } of #{ @assets.total_pages }
-            = paginate @assets
+            = pluralize @pagy.count, 'item'
+            - unless @pagy.count == 0
+              \- Page #{ @pagy.page } of #{ @pagy.pages }
+            = raw pagy_nav @pagy
         .cta.text-center
           = link_to ficon(:trash, 'Empty trash'), push_type_admin.trash_assets_path, method: 'delete', class: 'button radius alert', data: { confirm: true }
-          
+

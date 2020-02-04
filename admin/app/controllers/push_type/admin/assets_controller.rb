@@ -11,17 +11,17 @@ module PushType
     def index
       respond_to do |format|
         format.html do
-          @assets = PushType::Asset.not_trash.page(params[:page]).per(20)
+          @pagy, @assets = pagy(PushType::Asset.not_trash)
         end
         format.json do
-          @assets = PushType::Asset.not_trash.page(params[:page]).per(12)
+          @pagy, @assets = pagy(PushType::Asset.not_trash)
           render json: { assets: assets_array(@assets).as_json, meta: { current_page: @assets.current_page, total_pages: @assets.total_pages } }
         end
       end
     end
 
     def trash
-      @assets = PushType::Asset.trashed.page(params[:page]).per(20)
+      @pagy, @assets = pagy(PushType::Asset.trashed)
     end
 
     def new

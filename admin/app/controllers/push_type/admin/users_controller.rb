@@ -7,7 +7,7 @@ module PushType
     before_action :load_user,   only: [:edit, :update, :destroy]
 
     def index
-      @users = user_scope.page(params[:page]).per(30)
+      @pagy, @users = pagy(user_scope)
     end
 
     def new

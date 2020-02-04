@@ -21,11 +21,11 @@
       .side-panel{ :'side-panel' => true }
         .padded
           .pagination-centered
-            .pagination-stats {{ assets.length }} items - Page #{ @assets.current_page } of #{ [@assets.total_pages, 1].max }
-            = paginate @assets
+            .pagination-stats {{ assets.length }} items - Page #{ @pagy.page } of #{ [@pagy.pages, 1].max }
+            = raw pagy_nav @pagy
         .cta.text-center
           = link_to ficon(:plus, 'New upload'), push_type_admin.new_asset_path, class: 'button radius success'
-          - if @assets.current_page == 1
+          - if @pagy.page == 1
             .asset-upload
               .dropzone{ :'v-asset-upload' => true, :maxfiles => 10 }
                 .prompt Drag files to quickly upload them&hellip;

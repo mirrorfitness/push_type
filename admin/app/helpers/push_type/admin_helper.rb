@@ -1,5 +1,6 @@
 module PushType
   module AdminHelper
+    include Pagy::Frontend
 
     def title(page_title)
       content_for :title, page_title.to_s

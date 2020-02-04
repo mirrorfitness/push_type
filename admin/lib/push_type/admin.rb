@@ -14,10 +14,7 @@ require 'font-awesome-rails'
 require 'turbolinks'
 
 require 'breadcrumbs'
-require 'kaminari'
-# todo - remove this patch when possible
-# ref https://github.com/amatsuda/kaminari/pull/322
-require 'push_type/kaminari_patch'
+require 'pagy'
 require 'premailer/rails'
 
 module PushType
@@ -29,7 +26,7 @@ module PushType
   module Admin
     PushType.register_engine self, mount: 'admin'
   end
-  
+
 end
 
 require 'push_type/admin/assets'

@@ -40,9 +40,9 @@
       .padded
         .pagination-centered
           .pagination-stats
-            = pluralize @nodes.total_count, 'item'
-            - unless @nodes.total_count == 0
-              \- Page #{ @nodes.current_page } of #{ @nodes.total_pages }
-          = paginate @nodes
+            = pluralize @pagy.count, 'item'
+            - unless @pagy.count == 0
+              \- Page #{ @pagy.page } of #{ @pagy.pages }
+          = raw pagy_nav @pagy
       .cta.text-center
         = link_to ficon(:trash, 'Empty trash'), push_type_admin.trash_nodes_path, method: 'delete', class: 'button radius alert', data: { confirm: true }

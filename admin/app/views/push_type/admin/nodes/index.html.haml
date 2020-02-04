@@ -12,7 +12,7 @@
         .title= @parent.title
       - else
         .title Content
-        
+
     .body
       - if @nodes.empty?
         .empty-default
@@ -49,12 +49,12 @@
     .padded
       .pagination-centered
         .pagination-stats
-          = pluralize @nodes.total_count, 'item'
-          - unless @nodes.total_count == 0
-            \- Page #{ @nodes.current_page } of #{ @nodes.total_pages }
-        = paginate @nodes
+          = pluralize @pagy.count, 'item'
+          - unless @pagy.count == 0
+            \- Page #{ @pagy.page } of #{ @pagy.pages }
+        = raw pagy_nav @pagy
     .cta.text-center
       = render 'new_node_button'
-      - if @nodes.current_page == 1
+      - if @pagy.page == 1
         .text-button
           = link_to ficon(:trash, 'Trash bin'), push_type_admin.trash_nodes_path

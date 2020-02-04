@@ -1,9 +1,11 @@
 module PushType
   class AdminController < ActionController::Base
+    include Pagy::Backend
 
     layout 'push_type/admin'
     before_action :initial_breadcrumb
     helper_method :push_type_user
+
 
     helper PushType::Admin::Engine.helpers
 
@@ -20,6 +22,6 @@ module PushType
     def initial_breadcrumb
       true
     end
-    
+
   end
 end

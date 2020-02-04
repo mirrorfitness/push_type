@@ -15,7 +15,7 @@
   .side-panel{ :'side-panel' => true }
     .padded
       .pagination-centered
-        .pagination-stats #{ pluralize @users.total_count, 'user' } - Page #{ @users.current_page } of #{ @users.total_pages }
-        = paginate @users
+        .pagination-stats #{ pluralize @pagy.count, 'user' } - Page #{ @pagy.page } of #{ @pagy.pages }
+        = raw pagy_nav @pagy
     .cta.text-center
       = link_to ficon(:plus, 'New user'), push_type_admin.new_user_path, class: 'button radius success'
