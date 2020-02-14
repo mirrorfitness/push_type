@@ -15,7 +15,7 @@ module PushType
         end
         format.json do
           @pagy, @assets = pagy(PushType::Asset.not_trash)
-          render json: { assets: assets_array(@assets).as_json, meta: { current_page: @assets.current_page, total_pages: @assets.total_pages } }
+          render json: { assets: assets_array(@assets).as_json, meta: { current_page: @pagy.page, total_pages: @pagy.pages } }
         end
       end
     end
