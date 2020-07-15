@@ -22,9 +22,11 @@ export default Vue.component('asset-field', {
   },
 
   computed: {
-    assetId: function() {
-      return this.asset ? this.asset.id : null;
-    }
+    assetId: function() { return this.asset ? this.asset.id : null; },
+    assetSize: function() { return this.asset ? this.asset.file_size : null; },
+    assetName: function() { return this.asset ? this.asset.file_name : null; } ,
+    assetMimeType: function() { return this.asset ? this.asset.mime_type : null; },
+    assetUrl: function() { return this.asset ? this.asset.url : null; },
   },
 
   methods: {

@@ -56665,6 +56665,18 @@
 	  computed: {
 	    assetId: function assetId() {
 	      return this.asset ? this.asset.id : null;
+	    },
+	    assetSize: function assetSize() {
+	      return this.asset ? this.asset.file_size : null;
+	    },
+	    assetName: function assetName() {
+	      return this.asset ? this.asset.file_name : null;
+	    },
+	    assetMimeType: function assetMimeType() {
+	      return this.asset ? this.asset.mime_type : null;
+	    },
+	    assetUrl: function assetUrl() {
+	      return this.asset ? this.asset.url : null;
 	    }
 	  },
 
