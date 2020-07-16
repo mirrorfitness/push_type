@@ -5,11 +5,11 @@ module PushType
 
     def initialize(*args)
       super
-      raise ArgumentError, "Relation field names must end with suffix `_id` or `_ids`." unless relation_name
+      raise ArgumentError, 'Relation field names must end with suffix `_id` or `_ids`.' unless relation_name
     end
 
     def json_primitive
-       multiple? ? :array : super 
+       multiple? ? :array : super
     end
 
     def label
@@ -46,12 +46,21 @@ module PushType
       end
     end
 
+    def json_value
+      # If the field is stored as an object then it will be returned as [name, value]
+      if model.field_store.is_a?(Array)
+        model.field_store[1]
+      else
+        model.field_store.try(:[], name.to_s)
+      end
+    end
+
     private
 
     def defaults
       super.merge({
         label:    nil,
-        mapping:  { value: :id, text: :title }
+        mapping:  { value: :id, text: :title },
       })
     end
 
@@ -59,7 +68,7 @@ module PushType
       {
         value:  item.send(@opts[:mapping][:value]),
         text:   item.send(@opts[:mapping][:text]),
-        depth:  d
+        depth:  d,
       }
     end
 
@@ -76,6 +85,7 @@ module PushType
       object.class_eval do
         define_method(field.relation_name.to_sym) do
           return if field.json_value.blank?
+
           if field.multiple?
             field.relation_class.where id: field.json_value
           else
