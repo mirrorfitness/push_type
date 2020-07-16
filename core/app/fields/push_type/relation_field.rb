@@ -59,7 +59,7 @@ module PushType
     def json_value
       # If the field is stored as an object then it will be returned as [name, value]
       if model.field_store.is_a?(Array)
-        model.field_store[1]
+        model.field_store.last
       else
         model.field_store.try(:[], name.to_s)
       end
@@ -69,16 +69,16 @@ module PushType
 
     def defaults
       super.merge({
-        label:    nil,
-        mapping:  { value: :id, text: :title },
+        label: nil,
+        mapping: { value: :id, text: :title },
       })
     end
 
     def item_hash(item, d = 0)
       {
-        value:  item.send(@opts[:mapping][:value]),
-        text:   item.send(@opts[:mapping][:text]),
-        depth:  d,
+        value: item.send(@opts[:mapping][:value]),
+        text: item.send(@opts[:mapping][:text]),
+        depth: d,
       }
     end
 
@@ -94,7 +94,7 @@ module PushType
     on_instance do |object, field|
       object.class_eval do
         define_method(field.relation_name.to_sym) do
-          return if relation_id.blank?
+          return if field.relation_id.blank?
 
           if field.multiple?
             field.relation_class.where(id: field.relation_id)
