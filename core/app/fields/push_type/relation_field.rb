@@ -28,6 +28,16 @@ module PushType
       end
     end
 
+    def relation_id
+      @relation_id ||= begin
+        value = json_value
+        if value.is_a?(String)
+          value = JSON.parse(value.gsub("'", '"').gsub('=>', ':')) if value.strip[0] == '{'
+        end
+        value.is_a?(Hash) ? value['id'] : value
+      end
+    end
+
     def relation_name
       @relation_name ||= (rel = name.to_s.gsub!(/_ids?$/, '')) && (rel && multiple? ? rel.pluralize : rel)
     end
@@ -84,12 +94,12 @@ module PushType
     on_instance do |object, field|
       object.class_eval do
         define_method(field.relation_name.to_sym) do
-          return if field.json_value.blank?
+          return if relation_id.blank?
 
           if field.multiple?
-            field.relation_class.where id: field.json_value
+            field.relation_class.where(id: field.relation_id)
           else
-            field.relation_class.find_by_id field.json_value
+            field.relation_class.find_by_id(field.relation_id)
           end
         end unless method_defined?(field.relation_name.to_sym)
       end
