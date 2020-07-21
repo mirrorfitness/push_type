@@ -1,6 +1,5 @@
 require 'push_type_core'
 
-require 'coffee-rails'
 require 'sass-rails'
 require 'haml-rails'
 require 'foundation-rails'
@@ -18,7 +17,6 @@ require 'pagy'
 require 'premailer/rails'
 
 module PushType
-
   def self.admin_assets
     @@admin_assets ||= PushType::Admin::Assets.new
   end
@@ -26,7 +24,6 @@ module PushType
   module Admin
     PushType.register_engine self, mount: 'admin'
   end
-
 end
 
 require 'push_type/admin/assets'
