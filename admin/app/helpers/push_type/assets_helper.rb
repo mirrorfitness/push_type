@@ -9,9 +9,11 @@ module PushType
 
     def asset_hash(asset)
       return nil if asset.nil?
-      hash = [ :id, :file_name, :file_size, :mime_type, :created_at, :new_record?, :image?, :description_or_file_name ].inject({}) do |h, att|
-        h.update att => asset.send(att)
-      end
+
+      hash =
+        [:id, :file_name, :file_size, :mime_type, :created_at, :new_record?, :image?, :description_or_file_name, :kind].inject({}) do |h, att|
+          h.update att => asset.send(att)
+        end
       hash.update url: media_path(asset), preview_thumb_url: asset_preview_thumb_url(asset) if asset.persisted?
       hash
     end
