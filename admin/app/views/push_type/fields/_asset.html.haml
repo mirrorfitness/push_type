@@ -1,13 +1,17 @@
+- keys = ['id', 'size', 'name', 'mime_type', 'url', 'kind', 'type']
 %asset-field{ asset: asset_hash(f.object.send(field.relation_name.to_sym)).to_json, :'inline-template' => true }
   .asset-field{ class: ('error' if f.object.errors[field.name].present?) }
-    = f.fields_for field.name, OpenStruct.new do |af|
-      = af.hidden_field 'id', field.html_options.merge(value: '{{ assetId }}')
-      = af.hidden_field 'size', field.html_options.merge(value: '{{ assetSize }}')
-      = af.hidden_field "name", field.html_options.merge(value: '{{ assetName }}')
-      = af.hidden_field "mime_type", field.html_options.merge(value: '{{ assetMimeType }}')
-      = af.hidden_field "url", field.html_options.merge(value: '{{ assetUrl }}')
-      = af.hidden_field "kind", field.html_options.merge(value: '{{ assetKind }}')
-      = af.hidden_field "type", field.html_options.merge(value: 'asset')
+    -# If the object already has a parent object e.g. foo[bar][baz] just use the normally generated inputs
+    -# otherwise we want to generated a parent object for the properties to be grouped together
+    - if /\[[^\]]+\]\[[^\]]+\]$/ =~ f.object_name
+      - keys.each do |key|
+        = f.hidden_field key, field.html_options.merge(value: "{{ asset#{key.camelize} }}")
+      = f.hidden_field "type", field.html_options.merge(value: 'asset')
+    - else
+      = f.fields_for field.name, OpenStruct.new do |af|
+        - keys.each do |key|
+          = af.hidden_field key, field.html_options.merge(value: "{{ asset#{key.camelize} }}")
+        = af.hidden_field "type", field.html_options.merge(value: 'asset')
     .row{ :'v-if' => 'asset' }
       .small-4.medium-3.columns
         %img.preview{ :'v-bind:alt' => 'asset.file_name', :'v-bind:src' => 'asset.preview_thumb_url' }
@@ -31,4 +35,3 @@
 
 - if f.object.errors[field.name].present?
   %small.error= f.object.errors[field.name].join(', ')
-
