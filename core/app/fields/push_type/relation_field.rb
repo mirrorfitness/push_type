@@ -77,6 +77,8 @@ module PushType
     def item_hash(item, d = 0)
       {
         value: item.send(@opts[:mapping][:value]),
+        type: 'relation',
+        model: item.class.to_s,
         text: item.send(@opts[:mapping][:text]),
         depth: d,
       }

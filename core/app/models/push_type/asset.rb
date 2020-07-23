@@ -20,27 +20,28 @@ module PushType
 
     def kind
       return nil unless file_stored?
+
       case mime_type
-        when /\/vnd\.adobe/               then :file
+      when /\/vnd\.adobe/               then :file
 
-        when /\Aaudio\/.*\z/              then :audio
-        when /\Aimage\/.*\z/              then :image
-        when /\Avideo\/.*\z/              then :video
+      when /\Aaudio\/.*\z/              then :audio
+      when /\Aimage\/.*\z/              then :image
+      when /\Avideo\/.*\z/              then :video
 
-        when /\/vnd.*wordprocessingml/,
-             /\/vnd\.msword\z/,
-             /\Atext\/(plain|rtf)\z/      then :doc
-        when /\/pdf\z/                    then :pdf
-        when /\/vnd.*spreadsheetml/,
-             /\/vnd\.ms-excel\z/          then :sheet
-        when /\/vnd.*presentationml/,
-             /\/vnd\.ms-powerpoint\z/     then :slides
+      when /\/vnd.*wordprocessingml/,
+           /\/vnd\.msword\z/,
+           /\Atext\/(plain|rtf)\z/      then :doc
+      when /\/pdf\z/                    then :pdf
+      when /\/vnd.*spreadsheetml/,
+           /\/vnd\.ms-excel\z/          then :sheet
+      when /\/vnd.*presentationml/,
+           /\/vnd\.ms-powerpoint\z/     then :slides
 
-        when /\/(css|html|javascript|json)\z/,
-             /\/.*xml.*\z/                then :code
-        when /\/csv\z/                    then :csv
-        when /\/(g?zip|x.+compressed)\z/  then :zip
-        else :file
+      when /\/(css|html|javascript|json)\z/,
+           /\/.*xml.*\z/                then :code
+      when /\/csv\z/                    then :csv
+      when /\/(g?zip|x.+compressed)\z/  then :zip
+      else :file
       end
     end
 
@@ -60,11 +61,11 @@ module PushType
       return file if !image? || svg? || style.blank?
 
       case style.to_sym
-        when :original        then file
-        when :push_type_thumb then preview_thumb
-        else
-          size = PushType.config.media_styles[style.to_sym] || style
-          file.thumb(size)
+      when :original        then file
+      when :push_type_thumb then preview_thumb
+      else
+        size = PushType.config.media_styles[style.to_sym] || style
+        file.thumb(size)
       end
     end
 

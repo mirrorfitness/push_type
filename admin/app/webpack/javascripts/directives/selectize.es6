@@ -25,6 +25,29 @@ const opts = {
       } else {
         sel.addItem(items);
       }
+      const field = this.$input[0].name
+      this.$input.data('field', field)
+      $("[name='"+field+"']").remove()
+    },
+    // PushType by default will store relationships as just ids, but we want to
+    // store them as objects. This function appends additional inputs in order
+    // to pass the value as an object, onItemRemove removes them
+    onItemAdd: function(id, $item) {
+      const input = this.$input
+      const fieldName = input.data('field') || input[0].name // May not have been set yet
+      const options = this.$input.data('options').reduce((acc, val) => (acc[val.value] = val, acc), {});
+      const html = ['value', 'type', 'model'].map(field => {
+        const value = options[id][field]
+        const name = field == 'value' ? 'id' : field
+        return "<input class='"+id+"-set relation-input' type='hidden' name='"+fieldName+"["+ name +"]' value='"+value+"' />"
+      })
+      input.before(html.join(''))
+    },
+    onItemRemove: function(value) {
+      $("."+value+"-set").remove()
+    },
+    onClear: function(value) {
+      $(".relation-input").remove()
     },
     render: {
       option: function(item, esc) {
