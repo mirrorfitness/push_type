@@ -1,4 +1,5 @@
-- items = field.json_value.map { |v| v.kind_of?(Hash) ? v['id'] : v }
+- value = field.json_value
+- items = value.kind_of?(Array) ? value.map { |v| v.kind_of?(Hash) ? v['id'] : v } : value
 = f.select field.name, [], field.field_options, field.html_options.merge(data: { options: field.choices.to_json, items: items }, :'v-selectize' => true, :'selectize-kind' => field.kind)
 - if field.field_options[:note]
   .div.note= field.field_options[:note]
