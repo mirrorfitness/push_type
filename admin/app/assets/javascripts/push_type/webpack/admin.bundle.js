@@ -56677,6 +56677,9 @@
 	    },
 	    assetUrl: function assetUrl() {
 	      return this.asset ? this.asset.url : null;
+	    },
+	    assetKind: function assetKind() {
+	      return this.asset ? this.asset.kind : null;
 	    }
 	  },
 
@@ -57193,7 +57196,6 @@
 	        return "<input class='" + id + "-set relation-input' type='hidden' name='" + fieldName + "[" + name + "]' value='" + value + "' />";
 	      });
 	      input.before(html.join(''));
-	      (0, _jquery2.default)("[name='" + fieldName + "']").remove();
 	    },
 	    onItemRemove: function onItemRemove(value) {
 	      (0, _jquery2.default)("." + value + "-set").remove();

@@ -27,6 +27,7 @@ export default Vue.component('asset-field', {
     assetName: function() { return this.asset ? this.asset.file_name : null; } ,
     assetMimeType: function() { return this.asset ? this.asset.mime_type : null; },
     assetUrl: function() { return this.asset ? this.asset.url : null; },
+    assetKind: function() { return this.asset ? this.asset.kind : null; },
   },
 
   methods: {
