@@ -15,6 +15,7 @@ module PushType
     scope :not_image, -> { where(['mime_type NOT LIKE ?', 'image/%']) }
 
     before_create :set_mime_type
+    before_create :set_dimensions
     after_destroy :destroy_file!
 
     def kind
@@ -80,6 +81,11 @@ module PushType
     end
 
     private
+
+    def set_dimensions
+      self.file_width = file.width
+      self.file_height = file.height
+    end
 
     def set_mime_type
       self.file_ext   = file.ext

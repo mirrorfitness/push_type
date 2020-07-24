@@ -58,7 +58,7 @@ module PushType
       if opts[:mount]
         rails_engines[opts[:load_hook]] = [mod, opts[:mount]]
       end
-      
+
       ActiveSupport.run_load_hooks(opts[:load_hook], PushType)
     end
 
