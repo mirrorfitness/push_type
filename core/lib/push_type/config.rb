@@ -6,7 +6,7 @@ module PushType
   #
   module Config
 
-    # Node types that can be created at the content tree root 
+    # Node types that can be created at the content tree root
     mattr_accessor :root_nodes
     @@root_nodes = :all
 
@@ -42,5 +42,12 @@ module PushType
     mattr_accessor :dragonfly_secret
     @@dragonfly_secret = nil
 
+    # After save callback for nodes
+    mattr_accessor :after_save
+    @@after_save = nil
+
+    # After destroy callback for nodes
+    mattr_accessor :before_destroy
+    @@before_destroy = nil
   end
 end
