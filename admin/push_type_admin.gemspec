@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'push_type_core',              PushType::VERSION
   s.add_dependency 'haml-rails',                  '~> 1.0'
-  s.add_dependency 'coffee-rails',                '~> 4.2'
+  s.add_dependency 'coffee-rails',                '~> 5.0.0'
   s.add_dependency 'jquery-rails',                '~> 4.3'
   s.add_dependency 'foundation-rails',            '~> 5.5.3.2'
   s.add_dependency 'foundation-icons-sass-rails', '~> 3.0.0'

@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'rails',         ['>= 5.0']
   s.add_dependency 'pg',            ['>= 0.18']
-  s.add_dependency 'closure_tree',  '~> 6.6'
+  s.add_dependency 'closure_tree',  '~> 7.2'
   s.add_dependency 'dragonfly',     '~> 1.1'
   s.add_dependency 'redcarpet',     '~> 3.4'
 end
